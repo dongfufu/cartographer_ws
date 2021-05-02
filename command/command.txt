@@ -1,0 +1,26 @@
+
+在线或离线生成pbstream文件，
+
+roslaunch cartographer_ros my_demo_backpack_3d.launch bag_filename:=${HOME}/Downloads/***.bag
+
+打开一个新终端，停止接收数据：
+
+rosservice call /finish_trajectory 0
+
+生成pbstream文件：
+rosservice call /write_state /home/dongfu/catkin_ws/src/df_graduate/launch/df.pbstream true
+
+然后将pbstream文件转pgm，yaml文件：
+
+roslaunch cartographer_ros assets_writer_ros_map.launch bag_filenames:=${HOME}/Downloads/***.bag pose_graph_filename:=${HOME}/Downloads/***.pbstream
+或使用命令：
+
+rosrun cartographer_ros cartographer_pbstream_to_ros_map  -map_filestem=/home/dongfu/catkin_ws/src/df_graduate/launch/df  -pbstream_filename=/home/dongfu/catkin_ws/src/df_graduate/launch/df.pbstream -resolution=0.05
+
+Kdevelop使用：
+-DCATKIN_DEVEL_PREFIX=../devel 
+-DCMAKE_INSTALL_PREFIX=../install
+-DCMAKE_PREFIX_PATH=/opt/ros/melodic
+
+//创建功能包
+common_msgs: actionlib_msgs | diagnostic_msgs | geometry_msgs | nav_msgs | sensor_msgs | shape_msgs | stereo_msgs | trajectory_msgs | visualization_msgs
